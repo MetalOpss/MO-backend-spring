@@ -18,7 +18,7 @@ public class TestData {
 
     @PostConstruct
     public void init() {
-        Usuario admin = new Usuario();
+        /*Usuario admin = new Usuario();
         admin.setNombre("Benjamin");
         admin.setApellido("Sullca");
         admin.setEmail("benjamin@example.com");
@@ -26,7 +26,7 @@ public class TestData {
         admin.setDni("76028393");
         admin.setPassword(bCryptPasswordEncoder.encode("123456"));
         admin.setTipo(Rol.ADMINISTRADOR);
-        usuarioRepository.save(admin);
+        usuarioRepository.save(admin);*/
     }
 
 }
