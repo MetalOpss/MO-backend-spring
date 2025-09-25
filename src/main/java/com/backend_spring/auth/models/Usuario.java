@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -47,14 +48,6 @@ public class Usuario {
     @Column(nullable = false)
     private Rol tipo;
 
-    // Constructor
-    public Usuario(String nombre, String apellido,  String email, String telefono, String dni, String password, Rol tipo) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;
-        this.telefono = telefono;
-        this.dni = dni;
-        this.password = password;
-        this.tipo = tipo;
-    }
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Token> tokens;
 }
