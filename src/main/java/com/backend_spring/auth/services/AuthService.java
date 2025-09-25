@@ -1,29 +1,54 @@
 package com.backend_spring.auth.services;
 
+import com.backend_spring.auth.config.AppConfig;
+import com.backend_spring.auth.dto.RegisterRequest;
+import com.backend_spring.auth.dto.TokenResponse;
+import com.backend_spring.auth.models.Rol;
+import com.backend_spring.auth.models.Token;
 import com.backend_spring.auth.models.Usuario;
-import com.backend_spring.auth.repositories.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.backend_spring.auth.repository.TokenRepository;
+import com.backend_spring.auth.repository.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.webauthn.management.UserCredentialRepository;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final TokenRepository tokenRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public TokenResponse register(RegisterRequest request){
 
-    public Usuario authenticate(String email, String password) {
-        Usuario usuario = usuarioRepository.findByemail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        var usuario = Usuario.builder()
+                .nombre(request.nombre())
+                .apellido(request.apellido())
+                .email(request.email())
+                .telefono(request.telefono())
+                .dni(request.dni())
+                .password(passwordEncoder.encode(request.password()))
+                .tipo(request.tipo())
+                .build();
 
-        // Verificación de contraseña con -> hasheo de contraseña
-        if (!passwordEncoder.matches(password, usuario.getPassword())) {
-            throw new RuntimeException("Contraseña incorrecta");
-        }
+        var savedUsuario = usuarioRepository.save(usuario);
+        var jwtToken = jwtService.generateToken(usuario);
 
-        return usuario;
+        return new TokenResponse(jwtToken);
+    }
+
+    private void saveUsuarioToken(Usuario usuario, String jwtToken) {
+        var token = Token.builder()
+                .usuario(usuario)
+                .token(jwtToken)
+                .tokenType(Token.TokenType.BEARER)
+                .expired(false)
+                .revoked(false)
+                .build();
+        tokenRepository.save(token);
     }
 }

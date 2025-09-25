@@ -1,40 +1,27 @@
 package com.backend_spring.auth.controllers;
 
-import com.backend_spring.auth.dto.request.LoginRequest;
-import com.backend_spring.auth.models.Usuario;
+import com.backend_spring.auth.dto.RegisterRequest;
+import com.backend_spring.auth.dto.TokenResponse;
 import com.backend_spring.auth.services.AuthService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
 @RestController
-@RequestMapping("/api/auth/")
+@RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService service;
 
-    // Endpoint: Login
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
-
-        try{
-            Usuario usuario = authService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
-            return ResponseEntity.ok(Map.of(
-                    "message", "Logueado exitosamente",
-                    "email", usuario.getEmail(),
-                    "rol", usuario.getTipo().name()
-            ));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of(
-                    "error", e.getMessage()
-            ));
-        }
+    @PostMapping("/register")
+    public ResponseEntity<TokenResponse> register(@RequestBody final RegisterRequest request) {
+        final TokenResponse token = service.register(request);
+        return ResponseEntity.ok(token);
     }
+
+    //@PostMapping("/login")
 }
