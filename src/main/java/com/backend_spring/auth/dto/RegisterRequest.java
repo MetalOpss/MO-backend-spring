@@ -1,5 +1,7 @@
 package com.backend_spring.auth.dto;
 
+import com.backend_spring.auth.models.Rol;
+
 public record RegisterRequest(
         String nombre,
         String apellido,
@@ -7,5 +9,5 @@ public record RegisterRequest(
         String telefono,
         String dni,
         String password,
-        String tipo
+        Rol tipo
 ) {}
