@@ -47,6 +47,7 @@ public class Usuario {
     @Column(nullable = false)
     private Rol tipo;
 
+    // Constructor
     public Usuario(String nombre, String apellido,  String email, String telefono, String dni, String password, Rol tipo) {
         this.nombre = nombre;
         this.apellido = apellido;
