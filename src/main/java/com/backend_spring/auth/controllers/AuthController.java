@@ -1,5 +1,6 @@
 package com.backend_spring.auth.controllers;
 
+import com.backend_spring.auth.dto.LoginRequest;
 import com.backend_spring.auth.dto.RegisterRequest;
 import com.backend_spring.auth.dto.TokenResponse;
 import com.backend_spring.auth.services.AuthService;
@@ -23,5 +24,9 @@ public class AuthController {
         return ResponseEntity.ok(token);
     }
 
-    //@PostMapping("/login")
+    @PostMapping("/login")
+    public ResponseEntity<TokenResponse> login(@RequestBody final LoginRequest request) {
+        final TokenResponse token = service.login(request);
+        return ResponseEntity.ok(token);
+    }
 }
