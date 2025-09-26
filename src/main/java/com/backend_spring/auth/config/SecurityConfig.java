@@ -1,5 +1,6 @@
 package com.backend_spring.auth.config;
 
+import com.backend_spring.auth.models.Token;
 import com.backend_spring.auth.repository.TokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +10,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import org.springframework.http.HttpHeaders;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -36,9 +40,32 @@ public class SecurityConfig {
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout(logout ->
+                        logout.logoutUrl("/auth/logout")
+                                .addLogoutHandler((request, response, authentication) ->
+                                {
+                                    final var authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+                                    logout(authHeader);
+                                })
+                                .logoutSuccessHandler((request, response, authentication) ->
+                                                SecurityContextHolder.clearContext())
 
+                );
 
         return http.build();
+    }
+
+    private void logout(final String token){
+        if (token == null || !token.startsWith("Bearer ")){
+            throw new IllegalArgumentException("Token Invalido");
+        }
+
+        final String jwtToken = token.substring(7);
+        final Token foundToken = tokenRepository.findByToken(jwtToken)
+                .orElseThrow(() -> new IllegalArgumentException("Token invalido"));
+        foundToken.setExpired(true);
+        foundToken.setRevoked(true);
+        tokenRepository.save(foundToken);
     }
 }
