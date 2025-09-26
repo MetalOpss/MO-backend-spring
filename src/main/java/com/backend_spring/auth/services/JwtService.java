@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Map;
 
 @Service
@@ -71,7 +71,7 @@ public class JwtService {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-        return (Date) jwtToken.getExpiration();
+        return jwtToken.getExpiration();
     }
 
     private SecretKey getSignInKey(){
