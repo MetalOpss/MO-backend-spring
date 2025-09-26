@@ -18,8 +18,8 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PutMapping("/change-password")
-    public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest request) {
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
         usuarioService.changePassword(request);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Contraseña actualizada correctamente");
     }
 }
