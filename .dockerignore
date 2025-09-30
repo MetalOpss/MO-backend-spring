@@ -1,3 +1,4 @@
+# .dockerignore
 target/
 .mvn/
 mvnw
@@ -7,3 +8,9 @@ mvnw.cmd
 .idea/
 .vscode/
 .DS_Store
+.git/
+.gitignore
+README.md
+.env
+.env.*
+!.env.example

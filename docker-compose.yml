@@ -1,8 +1,29 @@
 services:
   auth:
-    image: auth-docker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: auth-docker:latest
     container_name: auth-service
     ports:
       - "8080:8080"
     env_file:
       - .env
+    # ✨ Healthcheck para saber cuándo está lista la app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # ✨ Reinicia automáticamente si falla
+    restart: unless-stopped
+    # ✨ Límites de recursos (opcional)
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
