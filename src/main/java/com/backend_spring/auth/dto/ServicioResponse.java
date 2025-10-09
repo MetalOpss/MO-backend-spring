@@ -6,5 +6,6 @@ public record ServicioResponse(
         Long idServicio,
         String nombre,
         String descripcion,
-        LocalDateTime fechaCreacion
+        LocalDateTime fechaCreacion,
+        Long idMaquina 
 ) {}

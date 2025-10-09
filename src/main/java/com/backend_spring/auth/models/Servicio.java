@@ -28,4 +28,9 @@ public class Servicio {
     @Column(name = "fecha_creacion", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime fechaCreacion;
+
+    // RELACIÓN 1:1
+    @OneToOne
+    @JoinColumn(name = "id_maquina", nullable = false)
+    private Maquina maquina;
 }
