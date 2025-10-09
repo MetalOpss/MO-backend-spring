@@ -14,6 +14,10 @@ public class UsuarioPrincipal implements UserDetails {
 
     private final Usuario usuario;
 
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(usuario.getTipo().name()));
