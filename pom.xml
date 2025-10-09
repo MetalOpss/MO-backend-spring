@@ -103,20 +103,6 @@
             <version>0.13.0</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- MapStruct core -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>1.6.3</version>
-        </dependency>
-
-        <!-- MapStruct annotation processor -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>1.6.3</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
 	<build>

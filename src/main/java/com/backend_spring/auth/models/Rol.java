@@ -4,5 +4,5 @@ public enum Rol {
     ADMINISTRADOR,
     PLANIFICADOR,
     ATENCION,
-    OPERARIO,
+    OPERARIO
 }
