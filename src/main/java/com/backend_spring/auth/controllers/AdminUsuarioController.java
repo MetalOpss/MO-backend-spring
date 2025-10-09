@@ -1,7 +1,8 @@
 package com.backend_spring.auth.controllers;
 
-import com.backend_spring.auth.models.Usuario;
+import com.backend_spring.auth.dto.*;
 import com.backend_spring.auth.services.AdminUsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,30 +18,31 @@ public class AdminUsuarioController {
 
     private final AdminUsuarioService adminUsuarioService;
 
+    @PostMapping
+    public ResponseEntity<UsuarioResponse> create(@Valid @RequestBody UsuarioCreateRequest request) {
+        return ResponseEntity.ok(adminUsuarioService.createUsuario(request));
+    }
+
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarUsuarios() {
+    public ResponseEntity<List<UsuarioResponse>> getAll() {
         return ResponseEntity.ok(adminUsuarioService.getAllUsuarios());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> obtenerUsuario(@PathVariable Long id) {
+    public ResponseEntity<UsuarioResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(adminUsuarioService.getUsuarioById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
-        return ResponseEntity.ok(adminUsuarioService.createUsuario(usuario));
-    }
-
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(
+    public ResponseEntity<UsuarioResponse> update(
             @PathVariable Long id,
-            @RequestBody Usuario usuario) {
-        return ResponseEntity.ok(adminUsuarioService.updateUsuario(id, usuario));
+            @Valid @RequestBody UsuarioUpdateRequest request
+    ) {
+        return ResponseEntity.ok(adminUsuarioService.updateUsuario(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         adminUsuarioService.deleteUsuario(id);
         return ResponseEntity.noContent().build();
     }
