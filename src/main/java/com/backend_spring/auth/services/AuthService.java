@@ -35,6 +35,7 @@ public class AuthService {
     public TokenResponse register(RegisterRequest request){
 
         var usuario = Usuario.builder()
+                .idSede(request.idSede())
                 .nombre(request.nombre())
                 .apellido(request.apellido())
                 .email(request.email())

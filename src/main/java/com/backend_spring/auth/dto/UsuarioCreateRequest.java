@@ -4,6 +4,7 @@ import com.backend_spring.auth.models.Rol;
 import jakarta.validation.constraints.*;
 
 public record UsuarioCreateRequest(
+        Long idSede,
         @NotBlank String nombre,
         @NotBlank String apellido,
         @Email @NotBlank String email,

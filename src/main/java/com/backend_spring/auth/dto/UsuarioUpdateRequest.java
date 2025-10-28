@@ -4,6 +4,7 @@ import com.backend_spring.auth.models.Rol;
 import jakarta.validation.constraints.Size;
 
 public record UsuarioUpdateRequest(
+        Long idSede,
         String nombre,
         String apellido,
         @Size(max = 20) String telefono,

@@ -19,6 +19,7 @@ public class AdminUsuarioService {
     // --- CREATE ---
     public UsuarioResponse createUsuario(UsuarioCreateRequest request) {
         Usuario usuario = new Usuario();
+        usuario.setIdSede(request.idSede());
         usuario.setNombre(request.nombre());
         usuario.setApellido(request.apellido());
         usuario.setEmail(request.email());
@@ -76,6 +77,7 @@ public class AdminUsuarioService {
     private UsuarioResponse toResponse(Usuario usuario) {
         return new UsuarioResponse(
                 usuario.getId(),
+                usuario.getIdSede(),
                 usuario.getNombre(),
                 usuario.getApellido(),
                 usuario.getEmail(),

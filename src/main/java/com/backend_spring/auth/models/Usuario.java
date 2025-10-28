@@ -20,6 +20,9 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "id_sede", nullable = true)
+    private Long idSede;
+
     @Column(length = 100, nullable = false)
     private String nombre;
 

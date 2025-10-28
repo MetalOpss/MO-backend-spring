@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 public record UsuarioResponse(
         Long id,
+        Long idSede,
         String nombre,
         String apellido,
         String email,
