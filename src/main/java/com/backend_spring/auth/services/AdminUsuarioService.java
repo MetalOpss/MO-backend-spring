@@ -52,6 +52,7 @@ public class AdminUsuarioService {
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
         // Actualizamos solo los campos que no son null
+        if (request.idSede() != null) usuario.setIdSede(request.idSede());
         if (request.nombre() != null) usuario.setNombre(request.nombre());
         if (request.apellido() != null) usuario.setApellido(request.apellido());
         if (request.telefono() != null) usuario.setTelefono(request.telefono());
