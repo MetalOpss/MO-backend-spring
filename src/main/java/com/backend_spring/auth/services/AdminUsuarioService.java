@@ -19,6 +19,7 @@ public class AdminUsuarioService {
     // --- CREATE ---
     public UsuarioResponse createUsuario(UsuarioCreateRequest request) {
         Usuario usuario = new Usuario();
+        usuario.setIdSede(request.idSede());
         usuario.setNombre(request.nombre());
         usuario.setApellido(request.apellido());
         usuario.setEmail(request.email());
@@ -51,6 +52,7 @@ public class AdminUsuarioService {
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
 
         // Actualizamos solo los campos que no son null
+        if (request.idSede() != null) usuario.setIdSede(request.idSede());
         if (request.nombre() != null) usuario.setNombre(request.nombre());
         if (request.apellido() != null) usuario.setApellido(request.apellido());
         if (request.telefono() != null) usuario.setTelefono(request.telefono());
@@ -76,6 +78,7 @@ public class AdminUsuarioService {
     private UsuarioResponse toResponse(Usuario usuario) {
         return new UsuarioResponse(
                 usuario.getId(),
+                usuario.getIdSede(),
                 usuario.getNombre(),
                 usuario.getApellido(),
                 usuario.getEmail(),
