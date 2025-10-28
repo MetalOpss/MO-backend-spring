@@ -41,7 +41,7 @@ public class JwtService {
 
     private String buildToken(final Usuario usuario, final long expirationMs) {
         return Jwts.builder()
-                .id(usuario.getId().toString())
+                .id(usuario.getIdUsuario().toString())
                 .claims(Map.of(
                         "nombre", usuario.getNombre(),
                         "rol", usuario.getTipo()

@@ -18,7 +18,8 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_usuario")
+    private Long idUsuario;
 
     @Column(name = "id_sede", nullable = true)
     private Long idSede;
@@ -40,6 +41,9 @@ public class Usuario {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(length = 20, nullable = false)
+    private String estado = "activo";
 
     @Column(name = "fecha_creacion", nullable = false, updatable = false)
     @CreationTimestamp

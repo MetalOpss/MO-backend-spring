@@ -27,6 +27,9 @@ public class AdminUsuarioService {
         usuario.setDni(request.dni());
         usuario.setTipo(request.tipo());
         usuario.setPassword(passwordEncoder.encode(request.password()));
+        if (request.estado() != null) {
+            usuario.setEstado(request.estado());
+        }
 
         Usuario saved = usuarioRepository.save(usuario);
         return toResponse(saved);
@@ -57,6 +60,7 @@ public class AdminUsuarioService {
         if (request.apellido() != null) usuario.setApellido(request.apellido());
         if (request.telefono() != null) usuario.setTelefono(request.telefono());
         if (request.dni() != null) usuario.setDni(request.dni());
+        if (request.estado() != null) usuario.setEstado(request.estado());
         if (request.tipo() != null) usuario.setTipo(request.tipo());
         if (request.password() != null && !request.password().isBlank()) {
             usuario.setPassword(passwordEncoder.encode(request.password()));
@@ -77,13 +81,14 @@ public class AdminUsuarioService {
     // --- HELPER METHOD: ENTITY -> DTO ---
     private UsuarioResponse toResponse(Usuario usuario) {
         return new UsuarioResponse(
-                usuario.getId(),
+                usuario.getIdUsuario(),
                 usuario.getIdSede(),
                 usuario.getNombre(),
                 usuario.getApellido(),
                 usuario.getEmail(),
                 usuario.getTelefono(),
                 usuario.getDni(),
+                usuario.getEstado(),
                 usuario.getTipo(),
                 usuario.getFechaCreacion()
         );

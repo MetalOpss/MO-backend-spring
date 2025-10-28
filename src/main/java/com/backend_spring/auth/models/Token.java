@@ -20,7 +20,8 @@ public class Token {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_token")
+    private Long idToken;
 
     @Column(unique = true, columnDefinition = "TEXT")
     private String token;
