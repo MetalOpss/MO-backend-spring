@@ -41,6 +41,9 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
 
+    @Column(length = 20, nullable = false)
+    private String estado = "activo";
+
     @Column(name = "fecha_creacion", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime fechaCreacion;

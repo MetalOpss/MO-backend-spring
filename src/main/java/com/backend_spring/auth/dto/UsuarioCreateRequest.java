@@ -11,5 +11,6 @@ public record UsuarioCreateRequest(
         @NotBlank @Size(max = 20) String telefono,
         @NotBlank @Size(max = 15) String dni,
         @NotBlank @Size(min = 6) String password,
+        @Size(max = 20) String estado,
         @NotNull Rol tipo
 ) {}

@@ -9,6 +9,7 @@ public record UsuarioUpdateRequest(
         String apellido,
         @Size(max = 20) String telefono,
         @Size(max = 15) String dni,
+        @Size(max = 20) String estado,
         Rol tipo,
         @Size(min = 6) String password
 ) {}

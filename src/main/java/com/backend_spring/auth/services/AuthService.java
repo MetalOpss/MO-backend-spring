@@ -42,6 +42,7 @@ public class AuthService {
                 .telefono(request.telefono())
                 .dni(request.dni())
                 .password(passwordEncoder.encode(request.password()))
+                .estado(request.estado() != null ? request.estado() : "activo")
                 .tipo(request.tipo())
                 .build();
 

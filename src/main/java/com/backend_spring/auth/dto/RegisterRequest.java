@@ -10,5 +10,6 @@ public record RegisterRequest(
         String telefono,
         String dni,
         String password,
+        String estado,
         Rol tipo
 ) {}

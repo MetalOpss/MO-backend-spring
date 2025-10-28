@@ -11,6 +11,7 @@ public record UsuarioResponse(
         String email,
         String telefono,
         String dni,
+        String estado,
         Rol tipo,
         LocalDateTime fechaCreacion
 ) {}
