@@ -81,7 +81,7 @@ public class AuthService {
 
     private void  revokeAllUserTokens(final Usuario usuario){
         final List<Token> validUserTokens = tokenRepository
-                .findAllByUsuarioIdAndExpiredFalseAndRevokedFalse(usuario.getId());
+                .findAllByUsuarioIdUsuarioAndExpiredFalseAndRevokedFalse(usuario.getIdUsuario());
         if (!validUserTokens.isEmpty()){
             for (final Token token : validUserTokens){
                 token.setExpired(true);

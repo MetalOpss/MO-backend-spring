@@ -53,7 +53,7 @@ public class UsuarioPrincipal implements UserDetails {
         return true;
     }
 
-    public Long getId() {
-        return usuario.getId();
+    public Long getIdUsuario() {
+        return usuario.getIdUsuario();
     }
 }

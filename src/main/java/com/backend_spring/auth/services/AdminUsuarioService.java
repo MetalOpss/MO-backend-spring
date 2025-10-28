@@ -81,7 +81,7 @@ public class AdminUsuarioService {
     // --- HELPER METHOD: ENTITY -> DTO ---
     private UsuarioResponse toResponse(Usuario usuario) {
         return new UsuarioResponse(
-                usuario.getId(),
+                usuario.getIdUsuario(),
                 usuario.getIdSede(),
                 usuario.getNombre(),
                 usuario.getApellido(),
