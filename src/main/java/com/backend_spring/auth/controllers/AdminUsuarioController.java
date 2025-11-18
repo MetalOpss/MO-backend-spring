@@ -13,27 +13,30 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/usuarios")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMINISTRADOR')")
 public class AdminUsuarioController {
 
     private final AdminUsuarioService adminUsuarioService;
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponse> create(@Valid @RequestBody UsuarioCreateRequest request) {
         return ResponseEntity.ok(adminUsuarioService.createUsuario(request));
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','PLANIFICADOR')")
     public ResponseEntity<List<UsuarioResponse>> getAll() {
         return ResponseEntity.ok(adminUsuarioService.getAllUsuarios());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(adminUsuarioService.getUsuarioById(id));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponse> update(
             @PathVariable Long id,
             @Valid @RequestBody UsuarioUpdateRequest request
@@ -42,6 +45,7 @@ public class AdminUsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         adminUsuarioService.deleteUsuario(id);
         return ResponseEntity.noContent().build();

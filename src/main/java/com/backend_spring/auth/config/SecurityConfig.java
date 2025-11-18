@@ -40,6 +40,7 @@ public class SecurityConfig {
                         req
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers("/auth/register", "/auth/login", "/actuator/**", "/actuator/health").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/admin/usuarios").hasAnyRole("ADMINISTRADOR", "PLANIFICADOR")
                                 .requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
                                 .anyRequest().authenticated()
                 )
