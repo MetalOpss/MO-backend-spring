@@ -24,7 +24,7 @@ public class AdminUsuarioController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','PLANIFICADOR')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','PLANIFICADOR', 'ATENCION', 'OPERARIO')")
     public ResponseEntity<List<UsuarioResponse>> getAll() {
         return ResponseEntity.ok(adminUsuarioService.getAllUsuarios());
     }

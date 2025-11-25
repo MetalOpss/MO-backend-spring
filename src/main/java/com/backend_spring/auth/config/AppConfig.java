@@ -21,7 +21,6 @@ public class AppConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        // ✅ USA TU CLASE UsuarioDetailsService que devuelve UsuarioPrincipal
         return new UsuarioDetailsService(usuarioRepository);
     }
 
