@@ -53,6 +53,11 @@ public class Usuario {
     @Column(nullable = false)
     private Rol tipo;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "usuario",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<Token> tokens;
 }
